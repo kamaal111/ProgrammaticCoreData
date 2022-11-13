@@ -38,6 +38,15 @@ struct ManagedObjectPropertyConfiguration {
     enum PropertyType {
         case date
         case uuid
+        case url
+        case data
+        case bool
+        case string
+        case float
+        case double
+        case int64
+        case int32
+        case int16
 
         fileprivate var nsAttributeType: NSAttributeType {
             switch self {
@@ -45,6 +54,24 @@ struct ManagedObjectPropertyConfiguration {
                 return .dateAttributeType
             case .uuid:
                 return .UUIDAttributeType
+            case .url:
+                return .URIAttributeType
+            case .data:
+                return .binaryDataAttributeType
+            case .bool:
+                return .booleanAttributeType
+            case .string:
+                return .stringAttributeType
+            case .float:
+                return .floatAttributeType
+            case .double:
+                return .doubleAttributeType
+            case .int64:
+                return .integer64AttributeType
+            case .int32:
+                return .integer32AttributeType
+            case .int16:
+                return .integer16AttributeType
             }
         }
     }
