@@ -13,7 +13,6 @@ struct PersistenceController {
     init(inMemory: Bool = false) {
         let model = NSManagedObjectModel()
         model.entities = Self.entities
-
         container = NSPersistentContainer(name: "ProgrammaticCoreData", managedObjectModel: model)
 
         if inMemory {

@@ -1,5 +1,5 @@
 //
-//  ManualManagedObject.swift
+//  ManuallyManagedObject.swift
 //  ProgrammaticCoreData
 //
 //  Created by Kamaal M Farah on 13/11/2022.
@@ -7,12 +7,12 @@
 
 import CoreData
 
-protocol ManualManagedObject: NSManagedObject {
+protocol ManuallyManagedObject: NSManagedObject {
     static var entityName: String { get }
     static var properties: [ManagedObjectPropertyConfiguration] { get }
 }
 
-extension ManualManagedObject {
+extension ManuallyManagedObject {
     static var entity: NSEntityDescription {
         // Create the entity
         let entity = NSEntityDescription()
@@ -34,6 +34,16 @@ struct ManagedObjectPropertyConfiguration {
     let name: String
     let type: PropertyType
     let isOptional: Bool
+
+    init(name: String, type: PropertyType, isOptional: Bool) {
+        self.name = name
+        self.type = type
+        self.isOptional = isOptional
+    }
+
+    init<Root: ManuallyManagedObject, Value>(name: KeyPath<Root, Value>, type: PropertyType, isOptional: Bool) {
+        self.init(name: NSExpression(forKeyPath:  name).keyPath, type: type, isOptional: isOptional)
+    }
 
     enum PropertyType {
         case date
