@@ -47,7 +47,7 @@ struct ContentView: View {
             return
         }
 
-        items.append(item)
+        withAnimation { items = [item] + items }
     }
 
     private func fetchItems() {
@@ -60,7 +60,7 @@ struct ContentView: View {
             return
         }
 
-        items = result
+        withAnimation { items = result.reversed() }
     }
 }
 
