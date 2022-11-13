@@ -7,13 +7,50 @@
 
 import CoreData
 
-protocol ManuallyManagedObject: NSManagedObject {
-    static var entityName: String { get }
+/// Protocol to use when implementing `NSManagedObject`'s without using Xcode's GUI.
+///
+/// Example usage:
+///
+/// ```swift
+/// @objc(Item)
+/// public class Item: NSManagedObject, ManuallyManagedObject {
+///     @NSManaged public var id: UUID
+///     @NSManaged public var timestamp: Date
+///
+///     public static let properties: [ManagedObjectPropertyConfiguration] = [
+///         .init(name: \Item.id, type: .uuid, isOptional: false),
+///         .init(name: \Item.timestamp, type: .date, isOptional: false),
+///     ]
+/// }
+/// ```
+///
+/// How to initialize a manually managed objects in your application?
+///
+/// ```swift
+/// class PersistenceController {
+///     let container: NSPersistentContainer
+///
+///     init() {
+///         let model = NSManagedObjectModel()
+///         model.entities = [
+///             Item.entity,
+///             // All your other managed objects entities.
+///         ]
+///         container = NSPersistentContainer(name: "<ContainerName>", managedObjectModel: model)
+///
+///         // All the other Persistence configurations.
+///     }
+/// }
+/// ```
+///
+public protocol ManuallyManagedObject: NSManagedObject {
+    /// Managed objects properties.
     static var properties: [ManagedObjectPropertyConfiguration] { get }
 }
 
 extension ManuallyManagedObject {
-    static var entity: NSEntityDescription {
+    /// A description of an entity in Core Data.
+    public static var entity: NSEntityDescription {
         // Create the entity
         let entity = NSEntityDescription()
         entity.name = entityName
@@ -25,37 +62,69 @@ extension ManuallyManagedObject {
         return entity
     }
 
-    static func fetchRequest() -> NSFetchRequest<Self> {
+    ///  Makes a `NSFetchRequest` for the managed object.
+    /// - Returns: A description of search criteria used to retrieve data from a persistent store.
+    public static func fetchRequest() -> NSFetchRequest<Self> {
         NSFetchRequest<Self>(entityName: entityName)
+    }
+
+    private static var entityName: String {
+        String(describing: Self.self)
     }
 }
 
-struct ManagedObjectPropertyConfiguration {
-    let name: String
-    let type: PropertyType
-    let isOptional: Bool
+/// Property configuration handled by ``ManuallyManagedObject``.
+public struct ManagedObjectPropertyConfiguration {
+    /// Property name.
+    public let name: String
+    /// Property type.
+    public let type: PropertyTypes
+    /// Wether or not the object is optional.
+    public let isOptional: Bool
 
-    init(name: String, type: PropertyType, isOptional: Bool) {
+    /// Memberwise initializer.
+    /// - Parameters:
+    ///   - name: Property name.
+    ///   - type: Property type.
+    ///   - isOptional: Wether or not the object is optional.
+    public init(name: String, type: PropertyTypes, isOptional: Bool) {
         self.name = name
         self.type = type
         self.isOptional = isOptional
     }
 
-    init<Root: ManuallyManagedObject, Value>(name: KeyPath<Root, Value>, type: PropertyType, isOptional: Bool) {
+    /// Initialize with managed objects keypath.
+    /// - Parameters:
+    ///   - name: Property name.
+    ///   - type: Property type.
+    ///   - isOptional: Wether or not the object is optional.
+    public init<Root: ManuallyManagedObject, Value>(name: KeyPath<Root, Value>, type: PropertyTypes, isOptional: Bool) {
         self.init(name: NSExpression(forKeyPath:  name).keyPath, type: type, isOptional: isOptional)
     }
 
-    enum PropertyType {
+    /// The managed objects property type represented in a enum.
+    public enum PropertyTypes {
+        /// `Date` type.
         case date
+        /// `UUID` type.
         case uuid
+        /// `URL` type.
         case url
+        /// `Data` type.
         case data
+        /// `Bool` type.
         case bool
+        /// `String` type.
         case string
+        /// `Float` type.
         case float
+        /// `Doublie` type.
         case double
+        /// `Int64` type.
         case int64
+        /// `Int32` type.
         case int32
+        /// `Int16` type.
         case int16
 
         fileprivate var nsAttributeType: NSAttributeType {
@@ -86,7 +155,7 @@ struct ManagedObjectPropertyConfiguration {
         }
     }
 
-    var attribute: NSAttributeDescription {
+    fileprivate var attribute: NSAttributeDescription {
         let attribute = NSAttributeDescription()
         attribute.name = name
         attribute.attributeType = type.nsAttributeType
