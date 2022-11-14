@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C80E310292162F300996EF4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80E30F292162F300996EF4 /* Item.swift */; };
-		2C80E3122921631300996EF4 /* ManuallyManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80E3112921631300996EF4 /* ManuallyManagedObject.swift */; };
+		2CA8F1A32922CBC6000DB796 /* ManuallyManagedObject in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA8F1A22922CBC6000DB796 /* ManuallyManagedObject */; };
 		2CAA6437292131CF00AFED7F /* ProgrammaticCoreDataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA6436292131CF00AFED7F /* ProgrammaticCoreDataApp.swift */; };
 		2CAA6439292131CF00AFED7F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA6438292131CF00AFED7F /* ContentView.swift */; };
 		2CAA643B292131D200AFED7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CAA643A292131D200AFED7F /* Assets.xcassets */; };
@@ -18,7 +18,6 @@
 
 /* Begin PBXFileReference section */
 		2C80E30F292162F300996EF4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		2C80E3112921631300996EF4 /* ManuallyManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuallyManagedObject.swift; sourceTree = "<group>"; };
 		2CAA6433292131CF00AFED7F /* ProgrammaticCoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProgrammaticCoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CAA6436292131CF00AFED7F /* ProgrammaticCoreDataApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammaticCoreDataApp.swift; sourceTree = "<group>"; };
 		2CAA6438292131CF00AFED7F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,17 +31,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA8F1A32922CBC6000DB796 /* ManuallyManagedObject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CA8F19E2922C58E000DB796 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2CAA642A292131CF00AFED7F = {
 			isa = PBXGroup;
 			children = (
-				2CAA6435292131CF00AFED7F /* ProgrammaticCoreData */,
 				2CAA6434292131CF00AFED7F /* Products */,
+				2CAA6435292131CF00AFED7F /* ProgrammaticCoreData */,
+				2CA8F19E2922C58E000DB796 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,7 +67,6 @@
 			children = (
 				2CAA6438292131CF00AFED7F /* ContentView.swift */,
 				2C80E30F292162F300996EF4 /* Item.swift */,
-				2C80E3112921631300996EF4 /* ManuallyManagedObject.swift */,
 				2CAA643F292131D200AFED7F /* Persistence.swift */,
 				2CAA6436292131CF00AFED7F /* ProgrammaticCoreDataApp.swift */,
 				2CAA643A292131D200AFED7F /* Assets.xcassets */,
@@ -92,6 +99,9 @@
 			dependencies = (
 			);
 			name = ProgrammaticCoreData;
+			packageProductDependencies = (
+				2CA8F1A22922CBC6000DB796 /* ManuallyManagedObject */,
+			);
 			productName = ProgrammaticCoreData;
 			productReference = 2CAA6433292131CF00AFED7F /* ProgrammaticCoreData.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +130,9 @@
 				Base,
 			);
 			mainGroup = 2CAA642A292131CF00AFED7F;
+			packageReferences = (
+				2CA8F1A12922CBC6000DB796 /* XCRemoteSwiftPackageReference "ManuallyManagedObject" */,
+			);
 			productRefGroup = 2CAA6434292131CF00AFED7F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -146,7 +159,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C80E3122921631300996EF4 /* ManuallyManagedObject.swift in Sources */,
 				2C80E310292162F300996EF4 /* Item.swift in Sources */,
 				2CAA6440292131D200AFED7F /* Persistence.swift in Sources */,
 				2CAA6439292131CF00AFED7F /* ContentView.swift in Sources */,
@@ -351,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2CA8F1A12922CBC6000DB796 /* XCRemoteSwiftPackageReference "ManuallyManagedObject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kamaal111/ManuallyManagedObject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CA8F1A22922CBC6000DB796 /* ManuallyManagedObject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2CA8F1A12922CBC6000DB796 /* XCRemoteSwiftPackageReference "ManuallyManagedObject" */;
+			productName = ManuallyManagedObject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2CAA642B292131CF00AFED7F /* Project object */;
 }

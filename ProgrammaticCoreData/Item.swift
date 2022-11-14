@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import ManuallyManagedObject
 
 @objc(Item)
 public class Item: NSManagedObject, ManuallyManagedObject {
